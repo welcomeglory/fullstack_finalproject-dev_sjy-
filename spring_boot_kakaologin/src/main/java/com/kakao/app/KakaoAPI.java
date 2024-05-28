@@ -2,6 +2,7 @@ package com.kakao.app;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -103,32 +104,45 @@ public class KakaoAPI {
 	}
 
 
+//	public void kakaoLogout(String accessToken) {
+//		String reqURL = "http://kapi.kakao.com/v1/user/logout";
+//		try {
+//			URL url = new URL(reqURL);
+//			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//			conn.setRequestMethod("POST");
+//			conn.setRequestProperty("Authorization", "Bearer " + accessToken);
+//			int responseCode = conn.getResponseCode();
+//			System.out.println("responseCode = " + responseCode);
+//			
+//			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+//			
+//			String result = "";
+//			String line = "";
+//			
+//			while((line = br.readLine()) != null) {
+//				result+=line;
+//			}
+//			System.out.println(result);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 	public void kakaoLogout(String accessToken) {
-		String reqURL = "http://kapi.kakao.com/v1/user/logout";
-		try {
-			URL url = new URL(reqURL);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Authorization", "Bearer " + accessToken);
-			int responseCode = conn.getResponseCode();
-			System.out.println("responseCode = " + responseCode);
-			
-			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			
-			String result = "";
-			String line = "";
-			
-			while((line = br.readLine()) != null) {
-				result+=line;
-			}
-			System.out.println(result);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	    try {
+	        URL url = new URL("https://kapi.kakao.com/v1/user/logout");
+	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+	        conn.setRequestMethod("POST");
+	        conn.setRequestProperty("Authorization", "Bearer " + accessToken);
+	        conn.setDoOutput(true);
+	        
+	        int responseCode = conn.getResponseCode();
+	        if (responseCode == 200) {
+	            // 성공적으로 로그아웃
+	        } else {
+	            // 로그아웃 실패
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
 	}
-	
-	
-	
-
-
 }
